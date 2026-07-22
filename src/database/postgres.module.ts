@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../user/entities/user.entity';
+import { Inventory } from '../inventory/entities/inventory.entity';
+import { Equipment } from '../equipment/entities/equipment.entity';
+import { EquipmentDefinition } from '../equipment/entities/equipment-definition.entity';
 
 @Module({
   imports: [
@@ -11,7 +14,7 @@ import { User } from '../user/entities/user.entity';
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_NAME || 'condgame',
-      entities: [User],
+      entities: [User, Inventory, Equipment, EquipmentDefinition],
       synchronize: process.env.NODE_ENV !== 'production',
     }),
   ],

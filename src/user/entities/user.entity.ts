@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -7,10 +7,6 @@ export class User {
 
   @Column({ unique: true })
   username: string;
-
-  @Column({ unique: true, name: 'user_id' })
-  @Index()
-  userId: string;
 
   constructor(partial: Partial<User>) {
     Object.assign(this, partial);

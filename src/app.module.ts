@@ -4,8 +4,16 @@ import { PostgresModule } from './database/postgres.module';
 import { RedisModule } from './database/redis.module';
 import { EquipmentModule } from './equipment/equipment.module';
 import { InventoryModule } from './inventory/inventory.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [PostgresModule, RedisModule, UserModule, EquipmentModule, InventoryModule],
+  imports: [
+    PostgresModule,
+    RedisModule,
+    UserModule,
+    EquipmentModule,
+    InventoryModule,
+    AuthModule,
+  ],
 })
 export class AppModule {}
