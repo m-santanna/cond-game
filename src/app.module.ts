@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { UserModule } from './user/user.module';
 import { PostgresModule } from './database/postgres.module';
 import { RedisModule } from './database/redis.module';
@@ -6,9 +7,11 @@ import { EquipmentModule } from './equipment/equipment.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { AuthModule } from './auth/auth.module';
 import { BuildModule } from './build/build.module';
+import { MapModule } from './map/map.module';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     PostgresModule,
     RedisModule,
     UserModule,
@@ -16,6 +19,7 @@ import { BuildModule } from './build/build.module';
     InventoryModule,
     AuthModule,
     BuildModule,
+    MapModule,
   ],
 })
 export class AppModule {}

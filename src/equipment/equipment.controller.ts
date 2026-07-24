@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Admin } from '../auth/decorators/admin.decorator';
 import { EquipmentService } from './equipment.service';
 import { CreateEquipmentDefinitionDto } from './dto/create-equipment-definition.dto';
 import { EquipmentDefinition } from './entities/equipment-definition.entity';
@@ -20,6 +21,7 @@ export class EquipmentController {
   }
 
   @Post('definition')
+  @Admin()
   async createDefinition(
     @Body() dto: CreateEquipmentDefinitionDto,
   ): Promise<EquipmentDefinition> {
