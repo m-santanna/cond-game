@@ -16,7 +16,7 @@ export class EquipmentController {
   async getDefinitionById(
     @Param('id') id: string,
   ): Promise<EquipmentDefinition> {
-    return await this.equipmentService.getDefinitionByKey(id);
+    return await this.equipmentService.getDefinitionById(id);
   }
 
   @Post('definition')

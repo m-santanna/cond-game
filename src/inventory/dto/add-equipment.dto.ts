@@ -7,7 +7,7 @@ import {
   IsEnum,
   IsUUID,
 } from 'class-validator';
-import { EquipmentQuality } from '../../equipment/enums/equipment-quality.enum';
+import { EquipmentCondition } from '../../equipment/enums/equipment-condition.enum';
 
 export class AddEquipmentDto {
   @IsUUID()
@@ -20,7 +20,7 @@ export class AddEquipmentDto {
   @IsOptional()
   tier?: number = 1;
 
-  @IsEnum(EquipmentQuality)
+  @IsEnum(EquipmentCondition)
   @IsOptional()
-  quality?: EquipmentQuality = EquipmentQuality.COMMON;
+  condition?: EquipmentCondition = EquipmentCondition.SOLID;
 }

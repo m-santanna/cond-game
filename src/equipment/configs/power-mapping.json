@@ -11,9 +11,11 @@
     "9": 900,
     "10": 1000
   },
-  "quality": {
-    "common": 0,
-    "good": 50,
-    "great": 100
+  "condition": {
+    "SOLID": 0,
+    "REFINED": 50,
+    "SUPERIOR": 100,
+    "PRISTINE": 150,
+    "MASTERPIECE": 200
   }
 }

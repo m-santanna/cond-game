@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Inventory } from '../../inventory/entities/inventory.entity';
 import { EquipmentDefinition } from './equipment-definition.entity';
-import { EquipmentQuality } from '../enums/equipment-quality.enum';
+import { EquipmentCondition } from '../enums/equipment-condition.enum';
 
 @Entity('equipment')
 @Index(['inventoryId'])
@@ -39,8 +39,8 @@ export class Equipment {
   @Column()
   power: number;
 
-  @Column({ type: 'enum', enum: EquipmentQuality })
-  quality: EquipmentQuality;
+  @Column({ type: 'enum', enum: EquipmentCondition })
+  condition: EquipmentCondition;
 
   constructor(partial: Partial<Equipment>) {
     Object.assign(this, partial);

@@ -1,7 +1,0 @@
-export enum EquipmentQuality {
-  COMMON = 'COMMON',
-  FINE = 'FINE',
-  SUPERIOR = 'SUPERIOR',
-  EXEPTIONAL = 'EXEPTIONAL',
-  MASTERPIECE = 'MASTERPIECE',
-}

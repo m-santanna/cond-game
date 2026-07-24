@@ -6,19 +6,21 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Inventory } from './entities/inventory.entity';
-import { EquipmentQuality } from '../equipment/enums/equipment-quality.enum';
+import { EquipmentCondition } from '../equipment/enums/equipment-condition.enum';
+import { EquipmentType } from '../equipment/enums/equipment-type.enum';
 import * as powerMapping from '../equipment/configs/power-mapping.json';
-import { Equipment } from '../equipment/entities/equipment.entity';
 import { EquipmentService } from '../equipment/equipment.service';
+import { BuildService } from '../build/build.service';
+import { Build } from '../build/entities/build.entity';
+import { Equipment } from '../equipment/entities/equipment.entity';
 
 @Injectable()
 export class InventoryService {
   constructor(
     @InjectRepository(Inventory)
     private inventoryRepo: Repository<Inventory>,
-    @InjectRepository(Equipment)
-    private equipmentRepo: Repository<Equipment>,
     private equipmentService: EquipmentService,
+    private buildService: BuildService,
   ) {}
 
   async createInventory(userId: string): Promise<Inventory> {
@@ -33,7 +35,10 @@ export class InventoryService {
       userId,
     });
 
-    return await this.inventoryRepo.save(inventory);
+    const savedInventory = await this.inventoryRepo.save(inventory);
+    await this.buildService.createBuild(savedInventory.id);
+
+    return savedInventory;
   }
 
   async getInventoryByUserId(userId: string): Promise<Inventory> {
@@ -66,47 +71,89 @@ export class InventoryService {
   async addEquipment(
     userId: string,
     definitionId: string,
-    attributes: { tier: number; quality: EquipmentQuality },
+    attributes: { tier: number; condition: EquipmentCondition },
   ): Promise<Equipment> {
     const inventory = await this.getInventoryByUserId(userId);
     const definition =
-      await this.equipmentService.getDefinitionByKey(definitionId);
+      await this.equipmentService.getDefinitionById(definitionId);
 
     const tier = attributes.tier || 1;
-    const quality = attributes.quality || EquipmentQuality.COMMON;
-    const power = this.calculateEquipmentPower(tier, quality);
+    const condition = attributes.condition || EquipmentCondition.SOLID;
+    const power = this.calculateEquipmentPower(tier, condition);
 
-    const equipment = this.equipmentRepo.create({
+    return await this.equipmentService.createEquipment({
       inventoryId: inventory.id,
       definitionId: definition.id,
       tier,
-      quality,
+      condition,
       power,
     });
-
-    return await this.equipmentRepo.save(equipment);
   }
 
   async deleteEquipment(userId: string, equipmentId: string): Promise<void> {
     const inventory = await this.getInventoryByUserId(userId);
 
-    const equipment = await this.equipmentRepo.findOne({
-      where: {
-        id: equipmentId,
-        inventoryId: inventory.id,
-      },
-    });
+    const equipment = await this.equipmentService.getEquipmentById(
+      equipmentId,
+      inventory.id,
+    );
 
     if (!equipment) {
       throw new NotFoundException('Equipment not found in inventory');
     }
 
-    await this.equipmentRepo.remove(equipment);
+    await this.equipmentService.deleteEquipment(equipment);
   }
 
-  calculateEquipmentPower(tier: number, quality: string): number {
+  calculateEquipmentPower(tier: number, condition: string): number {
     const tierPower = powerMapping.tier[tier] || 100;
-    const qualityBonus = powerMapping.quality[quality] || 0;
-    return tierPower + qualityBonus;
+    const conditionBonus = powerMapping.condition[condition] || 0;
+    return tierPower + conditionBonus;
+  }
+
+  async getBuild(userId: string): Promise<{
+    weapon: Equipment | null;
+    offhand: Equipment | null;
+    helmet: Equipment | null;
+    armor: Equipment | null;
+    boots: Equipment | null;
+  }> {
+    const inventory = await this.getInventoryByUserId(userId);
+    const build = await this.buildService.getBuildByInventoryId(inventory.id);
+
+    return {
+      weapon: build.weapon,
+      offhand: build.offhand,
+      helmet: build.helmet,
+      armor: build.armor,
+      boots: build.boots,
+    };
+  }
+
+  async equipEquipment(userId: string, equipmentId: string): Promise<Build> {
+    const inventory = await this.getInventoryByUserId(userId);
+
+    const equipment = await this.equipmentService.getEquipmentById(
+      equipmentId,
+      inventory.id,
+    );
+
+    if (!equipment) {
+      throw new NotFoundException('Equipment not found in inventory');
+    }
+
+    return await this.buildService.equipItem(
+      inventory.id,
+      equipment.definition.type,
+      equipment,
+    );
+  }
+
+  async unequipEquipment(
+    userId: string,
+    equipmentType: EquipmentType,
+  ): Promise<Build> {
+    const inventory = await this.getInventoryByUserId(userId);
+    return await this.buildService.unequipItem(inventory.id, equipmentType);
   }
 }
