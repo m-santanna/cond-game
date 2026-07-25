@@ -7,6 +7,8 @@ import { EquipmentDefinition } from '../equipment/entities/equipment-definition.
 import { Build } from 'src/build/entities/build.entity';
 import { ChestDefinition } from '../chest/entities/chest-definition.entity';
 import { ChestLoot } from '../chest/entities/chest-loot.entity';
+import { Map } from '../map/entities/map.entity';
+import { LocationDefinition } from '../map/entities/location-definition.entity';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { ChestLoot } from '../chest/entities/chest-loot.entity';
         Build,
         ChestDefinition,
         ChestLoot,
+        Map,
+        LocationDefinition,
       ],
       synchronize: process.env.NODE_ENV !== 'production',
     }),
