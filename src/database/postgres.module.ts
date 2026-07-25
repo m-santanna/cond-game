@@ -5,6 +5,8 @@ import { Inventory } from '../inventory/entities/inventory.entity';
 import { Equipment } from '../equipment/entities/equipment.entity';
 import { EquipmentDefinition } from '../equipment/entities/equipment-definition.entity';
 import { Build } from 'src/build/entities/build.entity';
+import { ChestDefinition } from '../chest/entities/chest-definition.entity';
+import { ChestLoot } from '../chest/entities/chest-loot.entity';
 
 @Module({
   imports: [
@@ -15,7 +17,15 @@ import { Build } from 'src/build/entities/build.entity';
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_NAME || 'condgame',
-      entities: [User, Inventory, Equipment, EquipmentDefinition, Build],
+      entities: [
+        User,
+        Inventory,
+        Equipment,
+        EquipmentDefinition,
+        Build,
+        ChestDefinition,
+        ChestLoot,
+      ],
       synchronize: process.env.NODE_ENV !== 'production',
     }),
   ],

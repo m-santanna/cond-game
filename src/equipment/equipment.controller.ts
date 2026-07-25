@@ -7,7 +7,7 @@ import { EquipmentDefinition } from './entities/equipment-definition.entity';
 export class EquipmentController {
   constructor(private readonly equipmentService: EquipmentService) {}
 
-  @Get('definition')
+  @Get('definition/all')
   async getAllDefinitions(): Promise<EquipmentDefinition[]> {
     return await this.equipmentService.getAllDefinitions();
   }
