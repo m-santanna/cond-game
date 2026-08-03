@@ -1,1 +1,7 @@
-{}
+{
+    "sword-chest": {
+        "rewards": [
+            {"type": "pool", "poolName": "swords", "rolls": 1}
+        ]
+    }
+}

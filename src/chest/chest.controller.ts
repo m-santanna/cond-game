@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { ChestService } from './chest.service';
-import { ChestConfigService } from './chest-config.service';
 import { CreateChestDefinitionDto } from './dto/create-chest-definition.dto';
 import { ChestDefinition } from './entities/chest-definition.entity';
 import { LootPool, LootPools } from './types/loot-pool.types';
@@ -8,10 +7,7 @@ import { ChestConfig, ChestConfigs } from './types/chest-config.types';
 
 @Controller('chest')
 export class ChestController {
-  constructor(
-    private readonly chestService: ChestService,
-    private readonly chestConfigService: ChestConfigService,
-  ) {}
+  constructor(private readonly chestService: ChestService) {}
 
   @Get('definition/all')
   async getAllDefinitions(): Promise<ChestDefinition[]> {
@@ -32,21 +28,21 @@ export class ChestController {
 
   @Get('config/all')
   async getAllChestConfigs(): Promise<ChestConfigs> {
-    return this.chestConfigService.getAllChestConfigs();
+    return this.chestService.getAllChestConfigs();
   }
 
   @Get('config/:key')
   async getChestConfig(@Param('key') key: string): Promise<ChestConfig> {
-    return this.chestConfigService.getChestConfig(key);
+    return this.chestService.getChestConfig(key);
   }
 
   @Get('pool/all')
   async getAllLootPools(): Promise<LootPools> {
-    return this.chestConfigService.getAllLootPools();
+    return this.chestService.getAllLootPools();
   }
 
   @Get('pool/:poolName')
   async getLootPool(@Param('poolName') poolName: string): Promise<LootPool> {
-    return this.chestConfigService.getLootPool(poolName);
+    return this.chestService.getLootPool(poolName);
   }
 }

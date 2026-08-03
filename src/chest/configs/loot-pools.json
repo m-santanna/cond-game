@@ -1,1 +1,5 @@
-{}
+{
+  "swords": {
+    "entries": [{ "type": "equipment", "key": "broad-sword", "weight": 1 }]
+  }
+}
