@@ -56,10 +56,10 @@ export class ChestService {
     return this.definitionRepo.save(newDefinition);
   }
 
-  getLootPool(poolName: string) {
-    const pool = this.lootPools[poolName];
+  getLootPool(poolKey: string) {
+    const pool = this.lootPools[poolKey];
     if (!pool) {
-      throw new NotFoundException(`Loot pool "${poolName}" not found`);
+      throw new NotFoundException(`Loot pool "${poolKey}" not found`);
     }
     return pool;
   }

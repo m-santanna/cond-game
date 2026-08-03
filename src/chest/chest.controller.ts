@@ -41,8 +41,8 @@ export class ChestController {
     return this.chestService.getAllLootPools();
   }
 
-  @Get('pool/:poolName')
-  async getLootPool(@Param('poolName') poolName: string): Promise<LootPool> {
-    return this.chestService.getLootPool(poolName);
+  @Get('pool/:poolKey')
+  async getLootPool(@Param('poolKey') poolKey: string): Promise<LootPool> {
+    return this.chestService.getLootPool(poolKey);
   }
 }
