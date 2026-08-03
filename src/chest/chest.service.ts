@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ChestDefinition } from './entities/chest-definition.entity';
 import { CreateChestDefinitionDto } from './dto/create-chest-definition.dto';
-import * as lootPoolsJson from './configs/loot-pools.json';
-import * as chestDefinitionsJson from './configs/chest-definitions.json';
+import lootPoolsJson from './configs/loot-pools.json';
+import chestDefinitionsJson from './configs/chest-definitions.json';
 import { LootPools } from './types/loot-pool.types';
 import { ChestConfigs } from './types/chest-config.types';
 
