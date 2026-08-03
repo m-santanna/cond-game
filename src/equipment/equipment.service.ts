@@ -25,6 +25,20 @@ export class EquipmentService {
     return definition;
   }
 
+  async getDefinitionByKey(key: string): Promise<EquipmentDefinition> {
+    const definition = await this.definitionRepo.findOne({
+      where: { key },
+    });
+
+    if (!definition) {
+      throw new NotFoundException(
+        `Equipment definition with key "${key}" not found`,
+      );
+    }
+
+    return definition;
+  }
+
   async getAllDefinitions(): Promise<EquipmentDefinition[]> {
     return this.definitionRepo.find();
   }

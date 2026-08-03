@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { ChestLoot } from './chest-loot.entity';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('chest_definitions')
 export class ChestDefinition {
@@ -7,12 +6,10 @@ export class ChestDefinition {
   id: string;
 
   @Column({ unique: true })
-  name: string;
+  key: string;
 
-  @OneToMany(() => ChestLoot, (chestLoot) => chestLoot.chestDefinition, {
-    cascade: true,
-  })
-  loot: ChestLoot[];
+  @Column({ unique: true })
+  name: string;
 
   constructor(partial: Partial<ChestDefinition>) {
     Object.assign(this, partial);

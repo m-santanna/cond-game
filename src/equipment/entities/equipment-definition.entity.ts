@@ -7,6 +7,9 @@ export class EquipmentDefinition {
   id: string;
 
   @Column({ unique: true })
+  key: string;
+
+  @Column({ unique: true })
   name: string;
 
   @Column({ type: 'enum', enum: EquipmentType })
