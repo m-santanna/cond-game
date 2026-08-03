@@ -2,7 +2,7 @@ import { ChestLootType } from '../enums/chest-loot-type.enum';
 
 export interface PoolReward {
   type: 'pool';
-  poolKey: string;
+  key: string;
   rolls: number;
 }
 
