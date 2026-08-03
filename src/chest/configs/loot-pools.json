@@ -1,5 +1,5 @@
 {
-  "swords": {
+  "sword-pool": {
     "entries": [{ "type": "equipment", "key": "broad-sword", "weight": 1 }]
   }
 }
