@@ -1,5 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { LocationService } from './location.service';
+import { LocationDefinition } from './entities/location-definition.entity';
+import { CreateLocationDefinitionDto } from './dto/create-location-definition.dto';
 import {
   DifficultyProfile,
   DifficultyProfiles,
@@ -17,6 +19,25 @@ import {
 @Controller('location')
 export class LocationController {
   constructor(private readonly locationService: LocationService) {}
+
+  @Get('definition/all')
+  async getAllDefinitions(): Promise<LocationDefinition[]> {
+    return await this.locationService.getAllDefinitions();
+  }
+
+  @Get('definition/:id')
+  async getDefinitionById(
+    @Param('id') id: string,
+  ): Promise<LocationDefinition> {
+    return await this.locationService.getDefinitionById(id);
+  }
+
+  @Post('definition')
+  async createDefinition(
+    @Body() dto: CreateLocationDefinitionDto,
+  ): Promise<LocationDefinition> {
+    return await this.locationService.createDefinition(dto);
+  }
 
   @Get('difficulty-profile/all')
   async getAllDifficultyProfiles(): Promise<DifficultyProfiles> {

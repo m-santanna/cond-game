@@ -1,4 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { LocationDefinition } from './entities/location-definition.entity';
+import { CreateLocationDefinitionDto } from './dto/create-location-definition.dto';
 import difficultyProfileJson from './configs/difficulty-profile.json';
 import rewardProfileJson from './configs/reward-profile.json';
 import tierDistributionJson from './configs/tier-distribution.json';
@@ -10,6 +14,10 @@ import { ConditionDistributions } from './types/condition-distribution.types';
 
 @Injectable()
 export class LocationService {
+  constructor(
+    @InjectRepository(LocationDefinition)
+    private definitionRepo: Repository<LocationDefinition>,
+  ) {}
   private readonly difficultyProfiles: DifficultyProfiles =
     difficultyProfileJson as DifficultyProfiles;
   private readonly rewardProfiles: RewardProfiles =
@@ -18,6 +26,29 @@ export class LocationService {
     tierDistributionJson as TierDistributions;
   private readonly conditionDistributions: ConditionDistributions =
     conditionDistributionJson as ConditionDistributions;
+
+  async getDefinitionById(id: string): Promise<LocationDefinition> {
+    const definition = await this.definitionRepo.findOne({
+      where: { id },
+    });
+
+    if (!definition) {
+      throw new NotFoundException(`Location definition ${id} not found`);
+    }
+
+    return definition;
+  }
+
+  async getAllDefinitions(): Promise<LocationDefinition[]> {
+    return this.definitionRepo.find();
+  }
+
+  async createDefinition(
+    dto: CreateLocationDefinitionDto,
+  ): Promise<LocationDefinition> {
+    const newDefinition = this.definitionRepo.create(dto);
+    return this.definitionRepo.save(newDefinition);
+  }
 
   getDifficultyProfile(key: string) {
     const profile = this.difficultyProfiles[key];
