@@ -1,0 +1,23 @@
+{
+  "low-tier": {
+    "entries": [
+      { "tier": 1, "probability": 0.6 },
+      { "tier": 2, "probability": 0.3 },
+      { "tier": 3, "probability": 0.1 }
+    ]
+  },
+  "mid-tier": {
+    "entries": [
+      { "tier": 2, "probability": 0.4 },
+      { "tier": 3, "probability": 0.4 },
+      { "tier": 4, "probability": 0.2 }
+    ]
+  },
+  "high-tier": {
+    "entries": [
+      { "tier": 3, "probability": 0.3 },
+      { "tier": 4, "probability": 0.4 },
+      { "tier": 5, "probability": 0.3 }
+    ]
+  }
+}

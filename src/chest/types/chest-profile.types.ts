@@ -15,10 +15,10 @@ export interface DirectReward {
 
 export type ChestReward = PoolReward | DirectReward;
 
-export interface ChestConfig {
+export interface ChestProfile {
   rewards: ChestReward[];
 }
 
-export interface ChestConfigs {
-  [chestKey: string]: ChestConfig;
+export interface ChestProfiles {
+  [chestKey: string]: ChestProfile;
 }

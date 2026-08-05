@@ -3,7 +3,7 @@ import { ChestService } from './chest.service';
 import { CreateChestDefinitionDto } from './dto/create-chest-definition.dto';
 import { ChestDefinition } from './entities/chest-definition.entity';
 import { LootPool, LootPools } from './types/loot-pool.types';
-import { ChestConfig, ChestConfigs } from './types/chest-config.types';
+import { ChestProfile, ChestProfiles } from './types/chest-profile.types';
 
 @Controller('chest')
 export class ChestController {
@@ -26,14 +26,14 @@ export class ChestController {
     return await this.chestService.createDefinition(dto);
   }
 
-  @Get('config/all')
-  async getAllChestConfigs(): Promise<ChestConfigs> {
-    return this.chestService.getAllChestConfigs();
+  @Get('profile/all')
+  async getAllChestProfiles(): Promise<ChestProfiles> {
+    return this.chestService.getAllChestProfiles();
   }
 
-  @Get('config/:key')
-  async getChestConfig(@Param('key') key: string): Promise<ChestConfig> {
-    return this.chestService.getChestConfig(key);
+  @Get('profile/:key')
+  async getChestProfile(@Param('key') key: string): Promise<ChestProfile> {
+    return this.chestService.getChestProfile(key);
   }
 
   @Get('pool/all')

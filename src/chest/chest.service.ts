@@ -4,15 +4,15 @@ import { Repository } from 'typeorm';
 import { ChestDefinition } from './entities/chest-definition.entity';
 import { CreateChestDefinitionDto } from './dto/create-chest-definition.dto';
 import lootPoolsJson from './configs/loot-pools.json';
-import chestDefinitionsJson from './configs/chest-definitions.json';
+import chestProfileJson from './configs/chest-profile.json';
 import { LootPools } from './types/loot-pool.types';
-import { ChestConfigs } from './types/chest-config.types';
+import { ChestProfiles } from './types/chest-profile.types';
 
 @Injectable()
 export class ChestService {
   private readonly lootPools: LootPools = lootPoolsJson as LootPools;
-  private readonly chestConfigs: ChestConfigs =
-    chestDefinitionsJson as ChestConfigs;
+  private readonly chestProfiles: ChestProfiles =
+    chestProfileJson as ChestProfiles;
 
   constructor(
     @InjectRepository(ChestDefinition)
@@ -68,15 +68,15 @@ export class ChestService {
     return this.lootPools;
   }
 
-  getChestConfig(chestKey: string) {
-    const config = this.chestConfigs[chestKey];
-    if (!config) {
-      throw new NotFoundException(`Chest config "${chestKey}" not found`);
+  getChestProfile(chestKey: string) {
+    const profile = this.chestProfiles[chestKey];
+    if (!profile) {
+      throw new NotFoundException(`Chest profile "${chestKey}" not found`);
     }
-    return config;
+    return profile;
   }
 
-  getAllChestConfigs(): ChestConfigs {
-    return this.chestConfigs;
+  getAllChestProfiles(): ChestProfiles {
+    return this.chestProfiles;
   }
 }

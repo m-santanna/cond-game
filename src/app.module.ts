@@ -7,6 +7,7 @@ import { InventoryModule } from './inventory/inventory.module';
 import { AuthModule } from './auth/auth.module';
 import { BuildModule } from './build/build.module';
 import { ChestModule } from './chest/chest.module';
+import { LocationModule } from './location/location.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ChestModule } from './chest/chest.module';
     AuthModule,
     BuildModule,
     ChestModule,
+    LocationModule,
   ],
 })
 export class AppModule {}

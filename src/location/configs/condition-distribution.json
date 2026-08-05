@@ -1,0 +1,23 @@
+{
+  "poor-condition": {
+    "entries": [
+      { "condition": "solid", "probability": 0.7 },
+      { "condition": "refined", "probability": 0.25 },
+      { "condition": "superior", "probability": 0.05 }
+    ]
+  },
+  "average-condition": {
+    "entries": [
+      { "condition": "refined", "probability": 0.5 },
+      { "condition": "superior", "probability": 0.35 },
+      { "condition": "pristine", "probability": 0.15 }
+    ]
+  },
+  "excellent-condition": {
+    "entries": [
+      { "condition": "superior", "probability": 0.4 },
+      { "condition": "pristine", "probability": 0.4 },
+      { "condition": "masterpiece", "probability": 0.2 }
+    ]
+  }
+}

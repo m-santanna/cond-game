@@ -1,0 +1,14 @@
+{
+  "common-rewards": {
+    "tierDistributionKey": "low-tier",
+    "conditionDistributionKey": "poor-condition"
+  },
+  "uncommon-rewards": {
+    "tierDistributionKey": "mid-tier",
+    "conditionDistributionKey": "average-condition"
+  },
+  "rare-rewards": {
+    "tierDistributionKey": "high-tier",
+    "conditionDistributionKey": "excellent-condition"
+  }
+}

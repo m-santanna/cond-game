@@ -1,0 +1,18 @@
+{
+  "easy": {
+    "difficulty": 1,
+    "rewardProfileKey": "common-rewards"
+  },
+  "medium": {
+    "difficulty": 3,
+    "rewardProfileKey": "uncommon-rewards"
+  },
+  "hard": {
+    "difficulty": 5,
+    "rewardProfileKey": "rare-rewards"
+  },
+  "very-hard": {
+    "difficulty": 7,
+    "rewardProfileKey": "rare-rewards"
+  }
+}
