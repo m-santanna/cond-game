@@ -15,6 +15,8 @@ import {
   ConditionDistribution,
   ConditionDistributions,
 } from './types/condition-distribution.types';
+import { LocationsMap } from './types/map-data.types';
+import { GenerateMapDto } from './dto/generate-map.dto';
 
 @Controller('location')
 export class LocationController {
@@ -83,5 +85,10 @@ export class LocationController {
     @Param('key') key: string,
   ): Promise<ConditionDistribution> {
     return this.locationService.getConditionDistribution(key);
+  }
+
+  @Post('map')
+  async generateMap(@Body() dto: GenerateMapDto): Promise<LocationsMap> {
+    return this.locationService.generateMap(dto.userId);
   }
 }
