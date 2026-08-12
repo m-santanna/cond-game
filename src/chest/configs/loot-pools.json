@@ -1,5 +1,11 @@
 {
   "sword-pool": {
-    "entries": [{ "type": "equipment", "key": "broad-sword", "weight": 1 }]
+    "entries": [
+      { "type": "equipment", "key": "broad-sword", "probability": 0.45 },
+      { "type": "equipment", "key": "hook-sword", "probability": 0.3 },
+      { "type": "equipment", "key": "katana", "probability": 0.15 },
+      { "type": "equipment", "key": "dual-sword", "probability": 0.07 },
+      { "type": "equipment", "key": "great-sword", "probability": 0.03 }
+    ]
   }
 }

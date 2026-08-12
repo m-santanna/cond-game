@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { BuildModule } from './build/build.module';
 import { ChestModule } from './chest/chest.module';
 import { LocationModule } from './location/location.module';
+import { RewardModule } from './reward/reward.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { LocationModule } from './location/location.module';
     BuildModule,
     ChestModule,
     LocationModule,
+    RewardModule,
   ],
 })
 export class AppModule {}

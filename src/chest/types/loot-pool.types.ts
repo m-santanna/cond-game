@@ -3,7 +3,9 @@ import { ChestLootType } from '../enums/chest-loot-type.enum';
 export interface LootPoolEntry {
   type: ChestLootType;
   key: string;
-  weight: number;
+  probability: number;
+  minAmount?: number;
+  maxAmount?: number;
 }
 
 export interface LootPool {

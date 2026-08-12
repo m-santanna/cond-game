@@ -22,6 +22,35 @@ export function selectWeightedRandom<
   return winner[valueKey];
 }
 
+export function randomWeightedAmount(
+  min: number,
+  max: number,
+  factor = 1,
+): number {
+  if (min === max) return min;
+
+  const range = max - min + 1;
+
+  let totalWeight = 0;
+  for (let i = 0; i < range; i++) {
+    totalWeight += Math.pow(range - i, factor);
+  }
+
+  const rand = Math.random() * totalWeight;
+
+  let cumulative = 0;
+  for (let i = 0; i < range; i++) {
+    const weight = Math.pow(range - i, factor);
+    cumulative += weight;
+
+    if (rand < cumulative) {
+      return min + i;
+    }
+  }
+
+  return max;
+}
+
 export function shuffle<T>(array: T[]): T[] {
   const shuffled = [...array];
 
