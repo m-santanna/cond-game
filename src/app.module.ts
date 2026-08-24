@@ -9,6 +9,7 @@ import { BuildModule } from './build/build.module';
 import { ChestModule } from './chest/chest.module';
 import { LocationModule } from './location/location.module';
 import { RewardModule } from './reward/reward.module';
+import { BattleModule } from './battle/battle.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { RewardModule } from './reward/reward.module';
     ChestModule,
     LocationModule,
     RewardModule,
+    BattleModule,
   ],
 })
 export class AppModule {}

@@ -135,7 +135,7 @@ export class LocationService {
     const expiresAt = new Date(now.getTime() + Time.HOUR);
 
     const map: LocationsMap = {
-      playerId: userId,
+      userId: userId,
       createdAt: now.toISOString(),
       expiresAt: expiresAt.toISOString(),
       locations,

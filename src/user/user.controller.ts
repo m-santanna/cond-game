@@ -4,7 +4,7 @@ import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { Player } from 'src/auth/decorators/player.decorator';
+import { Standard } from 'src/auth/decorators/standard.decorator';
 
 @Controller('user')
 export class UserController {
@@ -16,7 +16,7 @@ export class UserController {
   }
 
   @Get()
-  @Player()
+  @Standard()
   async getUser(@CurrentUser() user: AuthenticatedUser) {
     return await this.userService.getUserById(user.userId);
   }

@@ -8,7 +8,7 @@ export interface Location {
 }
 
 export interface LocationsMap {
-  playerId: string;
+  userId: string;
   createdAt: string;
   expiresAt: string;
   locations: Location[];

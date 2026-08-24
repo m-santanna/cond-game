@@ -25,35 +25,35 @@ export class Build {
   @Column({ nullable: true, name: 'weapon_id' })
   weaponId: string | null;
 
-  @OneToOne(() => Equipment)
+  @OneToOne(() => Equipment, { eager: true })
   @JoinColumn({ name: 'weapon_id' })
   weapon: Equipment | null;
 
   @Column({ nullable: true, name: 'offhand_id' })
   offhandId: string | null;
 
-  @OneToOne(() => Equipment)
+  @OneToOne(() => Equipment, { eager: true })
   @JoinColumn({ name: 'offhand_id' })
   offhand: Equipment | null;
 
   @Column({ nullable: true, name: 'helmet_id' })
   helmetId: string | null;
 
-  @OneToOne(() => Equipment)
+  @OneToOne(() => Equipment, { eager: true })
   @JoinColumn({ name: 'helmet_id' })
   helmet: Equipment | null;
 
   @Column({ nullable: true, name: 'armor_id' })
   armorId: string | null;
 
-  @OneToOne(() => Equipment)
+  @OneToOne(() => Equipment, { eager: true })
   @JoinColumn({ name: 'armor_id' })
   armor: Equipment | null;
 
   @Column({ nullable: true, name: 'boots_id' })
   bootsId: string | null;
 
-  @OneToOne(() => Equipment)
+  @OneToOne(() => Equipment, { eager: true })
   @JoinColumn({ name: 'boots_id' })
   boots: Equipment | null;
 

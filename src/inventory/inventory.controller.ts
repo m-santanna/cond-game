@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { AddEquipmentDto } from './dto/add-equipment.dto';
-import { Player } from 'src/auth/decorators/player.decorator';
+import { Standard } from 'src/auth/decorators/standard.decorator';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
 import { EquipmentType } from '../equipment/enums/equipment-type.enum';
@@ -11,13 +11,13 @@ export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
   @Get('equipment')
-  @Player()
+  @Standard()
   async getEquipments(@CurrentUser() user: AuthenticatedUser) {
     return await this.inventoryService.getEquipments(user.userId);
   }
 
   @Post('equipment')
-  @Player()
+  @Standard()
   async addEquipment(
     @CurrentUser() user: AuthenticatedUser,
     @Body() dto: AddEquipmentDto,
@@ -33,7 +33,7 @@ export class InventoryController {
   }
 
   @Delete('equipment/:equipmentId')
-  @Player()
+  @Standard()
   async deleteEquipment(
     @CurrentUser() user: AuthenticatedUser,
     @Param('equipmentId') equipmentId: string,
@@ -45,29 +45,26 @@ export class InventoryController {
   }
 
   @Get('build')
-  @Player()
+  @Standard()
   async getBuild(@CurrentUser() user: AuthenticatedUser) {
     return await this.inventoryService.getBuild(user.userId);
   }
 
   @Post('build/:equipmentId')
-  @Player()
+  @Standard()
   async equipEquipment(
     @CurrentUser() user: AuthenticatedUser,
     @Param('equipmentId') equipmentId: string,
   ) {
-    return await this.inventoryService.equipEquipment(user.userId, equipmentId);
+    return await this.inventoryService.equip(user.userId, equipmentId);
   }
 
   @Delete('build/:equipmentType')
-  @Player()
+  @Standard()
   async unequipEquipment(
     @CurrentUser() user: AuthenticatedUser,
     @Param('equipmentType') equipmentType: EquipmentType,
   ) {
-    return await this.inventoryService.unequipEquipment(
-      user.userId,
-      equipmentType,
-    );
+    return await this.inventoryService.unequip(user.userId, equipmentType);
   }
 }

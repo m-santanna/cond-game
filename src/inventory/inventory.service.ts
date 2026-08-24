@@ -118,19 +118,10 @@ export class InventoryService {
     armor: Equipment | null;
     boots: Equipment | null;
   }> {
-    const inventory = await this.getInventoryByUserId(userId);
-    const build = await this.buildService.getBuildByInventoryId(inventory.id);
-
-    return {
-      weapon: build.weapon,
-      offhand: build.offhand,
-      helmet: build.helmet,
-      armor: build.armor,
-      boots: build.boots,
-    };
+    return await this.buildService.getBuildByUserId(userId);
   }
 
-  async equipEquipment(userId: string, equipmentId: string): Promise<Build> {
+  async equip(userId: string, equipmentId: string): Promise<Build> {
     const inventory = await this.getInventoryByUserId(userId);
 
     const equipment = await this.equipmentService.getEquipmentById(
@@ -142,18 +133,14 @@ export class InventoryService {
       throw new NotFoundException('Equipment not found in inventory');
     }
 
-    return await this.buildService.equipItem(
-      inventory.id,
+    return await this.buildService.equip(
+      userId,
       equipment.definition.type,
       equipment,
     );
   }
 
-  async unequipEquipment(
-    userId: string,
-    equipmentType: EquipmentType,
-  ): Promise<Build> {
-    const inventory = await this.getInventoryByUserId(userId);
-    return await this.buildService.unequipItem(inventory.id, equipmentType);
+  async unequip(userId: string, equipmentType: EquipmentType): Promise<Build> {
+    return await this.buildService.unequip(userId, equipmentType);
   }
 }

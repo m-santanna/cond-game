@@ -25,44 +25,38 @@ export class BuildService {
     return await this.buildRepo.save(build);
   }
 
-  async getBuildByInventoryId(inventoryId: string): Promise<Build> {
+  async getBuildByUserId(userId: string): Promise<Build> {
     const build = await this.buildRepo.findOne({
-      where: { inventoryId },
-      relations: {
-        weapon: true,
-        offhand: true,
-        helmet: true,
-        armor: true,
-        boots: true,
+      where: {
+        inventory: {
+          userId: userId,
+        },
       },
     });
 
     if (!build) {
-      throw new NotFoundException('Build not found');
+      throw new NotFoundException(`Build not found for user ${userId}`);
     }
 
     return build;
   }
 
-  async equipItem(
-    inventoryId: string,
+  async equip(
+    userId: string,
     slot: EquipmentType,
     equipment: Equipment,
   ): Promise<Build> {
-    const build = await this.getBuildByInventoryId(inventoryId);
+    const build = await this.getBuildByUserId(userId);
     build[slot] = equipment;
     await this.buildRepo.save(build);
-    return this.getBuildByInventoryId(inventoryId);
+    return build;
   }
 
-  async unequipItem(
-    inventoryId: string,
-    equipmentType: EquipmentType,
-  ): Promise<Build> {
-    const build = await this.getBuildByInventoryId(inventoryId);
+  async unequip(userId: string, equipmentType: EquipmentType): Promise<Build> {
+    const build = await this.getBuildByUserId(userId);
     build[equipmentType] = null;
     await this.buildRepo.save(build);
-    return this.getBuildByInventoryId(inventoryId);
+    return build;
   }
 
   async saveBuild(build: Build): Promise<Build> {
