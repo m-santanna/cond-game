@@ -9,6 +9,7 @@ import { TeamSide } from './enums/team-side.enum';
 import { CreateBattleDto } from './dto/create-battle.dto';
 import { UserService } from '../user/user.service';
 import { BuildService } from '../build/build.service';
+import { MobService } from '../mob/mob.service';
 
 @Injectable()
 export class BattleService {
@@ -17,6 +18,7 @@ export class BattleService {
     private readonly redis: Redis,
     private readonly userService: UserService,
     private readonly buildService: BuildService,
+    private readonly mobService: MobService,
   ) {}
 
   private getBattleKey(battleId: string): string {
@@ -70,9 +72,28 @@ export class BattleService {
     await this.redis.del(key);
   }
 
+  async addEntityToBattle(
+    battleId: string,
+    sourceId: string,
+    entityType: EntityType,
+    side: TeamSide,
+  ): Promise<Battle> {
+    const battle = await this.getBattleById(battleId);
+
+    const entity =
+      entityType === EntityType.USER
+        ? await this.createUserEntity(sourceId)
+        : await this.createMobEntity(sourceId);
+
+    const team = this.getTeamBySide(battle, side);
+    team.entities.push(entity);
+
+    await this.saveBattle(battle);
+    return battle;
+  }
+
   private async createUserEntity(userId: string): Promise<BattleEntity> {
     const user = await this.userService.getUserById(userId);
-    // const build = await this.buildService.getBuildByUserId(userId);
 
     return {
       id: uuidv4(),
@@ -87,20 +108,31 @@ export class BattleService {
     };
   }
 
-  private createMobEntities(): BattleEntity[] {
-    return [
-      {
-        id: uuidv4(),
-        sourceId: 'mock-goblin',
-        type: EntityType.MOB,
-        name: 'Goblin Scout',
-        maxHealth: 10,
-        health: 10,
-        armor: 0,
-        maxEnergy: 2,
-        energy: 2,
-      },
-    ];
+  private async createMobEntity(
+    mobDefinitionId: string,
+  ): Promise<BattleEntity> {
+    const mobDefinition =
+      await this.mobService.getDefinitionById(mobDefinitionId);
+
+    return {
+      id: uuidv4(),
+      sourceId: mobDefinitionId,
+      type: EntityType.MOB,
+      name: mobDefinition.name,
+      maxHealth: mobDefinition.health,
+      health: mobDefinition.health,
+      armor: 0,
+      maxEnergy: 2,
+      energy: 2,
+    };
+  }
+
+  private getTeamBySide(battle: Battle, side: TeamSide): Team {
+    const team = battle.teams.find((t) => t.side === side);
+    if (!team) {
+      throw new Error(`Team with side ${side} not found in battle`);
+    }
+    return team;
   }
 
   getAllies(battle: Battle, entityId: string): BattleEntity[] {

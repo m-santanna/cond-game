@@ -26,5 +26,5 @@ export interface Battle {
   teams: [Team, Team];
   createdAt: string;
   updatedAt: string;
-  locationId?: number;
+  locationId?: string;
 }

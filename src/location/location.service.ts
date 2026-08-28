@@ -2,6 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import Redis from 'ioredis';
+import { v4 as uuidv4 } from 'uuid';
 import { REDIS_CLIENT } from '../database/redis.module';
 import { LocationDefinition } from './entities/location-definition.entity';
 import { CreateLocationDefinitionDto } from './dto/create-location-definition.dto';
@@ -120,8 +121,8 @@ export class LocationService {
       this.distributeLocationDefinitions(definitions);
 
     const locations: Location[] = distributedDefinitionIds.map(
-      (locationDefinitionId, index) => ({
-        id: index + 1,
+      (locationDefinitionId) => ({
+        id: uuidv4(),
         locationDefinitionId,
         difficultyProfile: selectWeightedRandom(
           this.difficultyWeights,

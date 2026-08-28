@@ -7,6 +7,7 @@ import { EquipmentDefinition } from '../equipment/entities/equipment-definition.
 import { Build } from 'src/build/entities/build.entity';
 import { ChestDefinition } from '../chest/entities/chest-definition.entity';
 import { LocationDefinition } from '../location/entities/location-definition.entity';
+import { MobDefinition } from '../mob/entities/mob-definition.entity';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { LocationDefinition } from '../location/entities/location-definition.ent
         Build,
         ChestDefinition,
         LocationDefinition,
+        MobDefinition,
       ],
       synchronize: process.env.NODE_ENV !== 'production',
     }),

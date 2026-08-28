@@ -1,7 +1,7 @@
 import { LocationStatus } from '../enums/location-status.enum';
 
 export interface Location {
-  id: number;
+  id: string;
   locationDefinitionId: string;
   difficultyProfile: string;
   status: LocationStatus;
