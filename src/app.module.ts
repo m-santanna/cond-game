@@ -11,6 +11,7 @@ import { LocationModule } from './location/location.module';
 import { RewardModule } from './reward/reward.module';
 import { BattleModule } from './battle/battle.module';
 import { MobModule } from './mob/mob.module';
+import { EffectModule } from './effect/effect.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MobModule } from './mob/mob.module';
     RewardModule,
     BattleModule,
     MobModule,
+    EffectModule,
   ],
 })
 export class AppModule {}
