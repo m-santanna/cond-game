@@ -1,0 +1,39 @@
+{
+  "sword-slash": {
+    "name": "Sword Slash",
+    "description": "",
+    "cost": 2,
+    "effects": [
+      {
+        "key": "damage-effect",
+        "value": 8
+      }
+    ]
+  },
+  "healing-touch": {
+    "name": "Healing Touch",
+    "description": "Restore health to yourself or an ally",
+    "cost": 2,
+    "effects": [
+      {
+        "key": "healing-effect",
+        "value": 8
+      }
+    ]
+  },
+  "bloodthirst": {
+    "name": "Bloodthirst",
+    "description": "Deals damage to a single target and restores heath",
+    "cost": 3,
+    "effects": [
+      {
+        "key": "damage-effect",
+        "value": 6
+      },
+      {
+        "key": "healing-effect",
+        "value": 6
+      }
+    ]
+  }
+}

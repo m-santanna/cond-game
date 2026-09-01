@@ -12,6 +12,7 @@ import { RewardModule } from './reward/reward.module';
 import { BattleModule } from './battle/battle.module';
 import { MobModule } from './mob/mob.module';
 import { EffectModule } from './effect/effect.module';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { EffectModule } from './effect/effect.module';
     BattleModule,
     MobModule,
     EffectModule,
+    CardModule,
   ],
 })
 export class AppModule {}
