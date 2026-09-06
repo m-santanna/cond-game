@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Build } from './entities/build.entity';
 import { Equipment } from '../equipment/entities/equipment.entity';
-import { EquipmentType } from '../equipment/enums/equipment-type.enum';
+import { EquipmentSlot } from '../equipment/enums/equipment-slot.enum';
 
 @Injectable()
 export class BuildService {
@@ -43,7 +43,7 @@ export class BuildService {
 
   async equip(
     userId: string,
-    slot: EquipmentType,
+    slot: EquipmentSlot,
     equipment: Equipment,
   ): Promise<Build> {
     const build = await this.getBuildByUserId(userId);
@@ -52,9 +52,9 @@ export class BuildService {
     return build;
   }
 
-  async unequip(userId: string, equipmentType: EquipmentType): Promise<Build> {
+  async unequip(userId: string, equipmentSlot: EquipmentSlot): Promise<Build> {
     const build = await this.getBuildByUserId(userId);
-    build[equipmentType] = null;
+    build[equipmentSlot] = null;
     await this.buildRepo.save(build);
     return build;
   }

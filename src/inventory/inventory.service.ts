@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Inventory } from './entities/inventory.entity';
 import { EquipmentCondition } from '../equipment/enums/equipment-condition.enum';
-import { EquipmentType } from '../equipment/enums/equipment-type.enum';
+import { EquipmentSlot } from '../equipment/enums/equipment-slot.enum';
 import * as powerMapping from '../equipment/configs/power-mapping.json';
 import { EquipmentService } from '../equipment/equipment.service';
 import { BuildService } from '../build/build.service';
@@ -135,12 +135,12 @@ export class InventoryService {
 
     return await this.buildService.equip(
       userId,
-      equipment.definition.type,
+      equipment.definition.slot,
       equipment,
     );
   }
 
-  async unequip(userId: string, equipmentType: EquipmentType): Promise<Build> {
-    return await this.buildService.unequip(userId, equipmentType);
+  async unequip(userId: string, equipmentSlot: EquipmentSlot): Promise<Build> {
+    return await this.buildService.unequip(userId, equipmentSlot);
   }
 }

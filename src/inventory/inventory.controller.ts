@@ -4,7 +4,7 @@ import { AddEquipmentDto } from './dto/add-equipment.dto';
 import { Standard } from 'src/auth/decorators/standard.decorator';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { EquipmentType } from '../equipment/enums/equipment-type.enum';
+import { EquipmentSlot } from '../equipment/enums/equipment-slot.enum';
 
 @Controller('inventory')
 export class InventoryController {
@@ -59,12 +59,12 @@ export class InventoryController {
     return await this.inventoryService.equip(user.userId, equipmentId);
   }
 
-  @Delete('build/:equipmentType')
+  @Delete('build/:equipmentSlot')
   @Standard()
   async unequipEquipment(
     @CurrentUser() user: AuthenticatedUser,
-    @Param('equipmentType') equipmentType: EquipmentType,
+    @Param('equipmentSlot') equipmentSlot: EquipmentSlot,
   ) {
-    return await this.inventoryService.unequip(user.userId, equipmentType);
+    return await this.inventoryService.unequip(user.userId, equipmentSlot);
   }
 }

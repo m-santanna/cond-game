@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EquipmentDefinition } from './entities/equipment-definition.entity';
 import { Equipment } from './entities/equipment.entity';
+import cardsByType from '../card/configs/cards-by-type.json';
 
 @Injectable()
 export class EquipmentService {
@@ -46,7 +47,10 @@ export class EquipmentService {
   async createDefinition(
     definition: Partial<EquipmentDefinition>,
   ): Promise<EquipmentDefinition> {
-    const newDefinition = this.definitionRepo.create(definition);
+    const newDefinition = this.definitionRepo.create({
+      ...definition,
+      cards: cardsByType[definition.type],
+    });
     return this.definitionRepo.save(newDefinition);
   }
 
